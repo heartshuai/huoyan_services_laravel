@@ -1,0 +1,20 @@
+{
+    "name": "yxs/huoyan_services",
+    "description": "火眼服务",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Huoyan\\Services\\": "src/"
+        },
+        "files": [
+            "src/Kernel/Helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "yxs",
+            "email": "yanxingshuai@sina.com"
+        }
+    ],
+    "require": {}
+}
