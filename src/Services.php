@@ -2,6 +2,7 @@
 namespace Huoyan\Services;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Redis;
+
 use Throwable;
 
 class Services
@@ -67,11 +68,19 @@ class Services
 
 
         $method=uncamelize($method);
-        $send_type=ucwords($args['send_type']??'post');
-        if(!in_array($send_type,['Post','Get'])){
-            return return_data('发送方式错误','504',[]);
+        if(empty(array_column($args,'send_type'))){
+            $send_type=ucwords('post');
+            $send_to_function='send'.$send_type;
+        }else{
+            $send_type=ucwords(array_column($args,'send_type')[0]);
+            $send_to_function='send'.$send_type;
+            unset($args[0]['send_type']);
         }
-        $send_to_function='send'.$send_type;
+        if(!in_array($send_type,['Post','Get'])){
+            return return_huoyan_data('发送方式错误','504',[]);
+        }
+
+
         unset($args['send_type']);
         return $this->$send_to_function("api/license/$method",[
             'headers' => ['Content-Type' => 'application/json'],'json'=>$args]);
