@@ -1,5 +1,5 @@
 {
-    "name": "yxs/huoyan_services",
+    "name": "huoyan/huoyan_services_laravel",
     "description": "火眼服务",
     "type": "library",
     "autoload": {
