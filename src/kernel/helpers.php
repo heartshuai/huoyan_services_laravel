@@ -8,7 +8,7 @@ function array_to_huoyan_url_prarm($array){
 }
 function return_huoyan_data($msg = '', $code = 0, $data = [])
 {
-    return response()->json(array('code' => $code, 'msg' => $msg, 'data' => $data), 200)->getContent();
+    return response()->json(array('code' => $code, 'msg' => $msg, 'data' => $data), 200)->setEncodingOptions(JSON_UNESCAPED_UNICODE)->getContent();
 
 }
 //下划线命名到驼峰命名
