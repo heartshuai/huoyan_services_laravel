@@ -35,9 +35,7 @@ class Services
 
 
         $this->access_token=$this->getAccessToken();
-        if(empty($this->access_token)){
-            return return_huoyan_data('token获取失败，请检查配置文件','403',[]);
-        }
+
 
     }
 
@@ -71,7 +69,9 @@ class Services
     public function __call($method, $args)
     {
 
-
+        if(empty($this->access_token)){
+            return return_huoyan_data('token获取失败，请检查配置文件','403',[]);
+        }
         $method=huoyan_uncamelize($method);
         if(empty(array_column($args,'send_type'))){
             $send_type=ucwords('post');
