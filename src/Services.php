@@ -35,6 +35,9 @@ class Services
 
 
         $this->access_token=$this->getAccessToken();
+        if(empty($this->access_token)){
+            return return_huoyan_data('token获取失败，请检查配置文件','403',[]);
+        }
 
     }
 
@@ -51,10 +54,12 @@ class Services
             ]]);
 
 
-        if($auth_data['code']=='200'){
+        if(!empty($auth_data['code']) && $auth_data['code']=='200'){
             Redis::set('huoyan_services:' . $this->access_key.':'.'access_token',$auth_data['data']['access_token']);
             Redis::expire('huoyan_services:' . $this->access_key.':'.'access_token',$auth_data['data']['expires_in']);
             return $auth_data['data']['access_token'];
+        }else{
+            return false;
         }
 
 
@@ -67,7 +72,7 @@ class Services
     {
 
 
-        $method=uncamelize($method);
+        $method=huoyan_uncamelize($method);
         if(empty(array_column($args,'send_type'))){
             $send_type=ucwords('post');
             $send_to_function='send'.$send_type;
@@ -98,7 +103,7 @@ class Services
     private function send($url='',$data=[],$type='post'){
 
         if($type=='get'){
-            $params=array_to_url_prarm($data);
+            $params=array_to_huoyan_url_prarm($data);
             $url.='&'.$params;
         }
 
