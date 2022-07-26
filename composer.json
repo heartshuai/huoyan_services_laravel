@@ -22,5 +22,12 @@
         "php": ">=7.0",
         "guzzlehttp/guzzle": "^7.0",
         "laravel/framework": ">=5.5"
+    },
+    "extra": {
+    "laravel": {
+        "providers": [
+            "Huoyan\\Services\\ServicesProvider"
+        ]
     }
+}
 }
