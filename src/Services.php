@@ -88,7 +88,7 @@ class Services
 
         unset($args['send_type']);
         return $this->$send_to_function("api/license/$method",[
-            'headers' => ['Content-Type' => 'application/json'],'json'=>$args]);
+            'headers' => ['Content-Type' => 'application/json','Authorization'=>$this->access_token],'json'=>$args]);
 
     }
 
