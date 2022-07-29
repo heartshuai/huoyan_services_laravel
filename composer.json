@@ -7,7 +7,7 @@
             "Huoyan\\Services\\": "src/"
         },
         "files": [
-            "src/kernel/Helpers.php"
+            "src/kernel/helpers.php"
         ]
     },
     "authors": [
