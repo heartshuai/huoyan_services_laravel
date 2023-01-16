@@ -50,13 +50,15 @@ class ServicesProvider extends ServiceProvider
      */
     protected function registerServices()
     {
-        $license_config = $this->app->make('config')->get('huoyan_services.scrm.license');
+        $config=$this->app->make('config')->get('huoyan_services');
+        foreach ($config as $groupKey=>$groupVal){
+            foreach ($groupVal as $key=>$val){
 
-        if(!empty($license_config)){
-            $this->app->singleton('huoyan_services.scrm.license', function ($app) use($license_config){
-
-                return new Services($license_config);
-            });
+                $this->app->singleton("huoyan_services.$groupKey.$key", function ($app) use($val,$key){
+                    $val['controller']=$key;
+                    return new Services($val);
+                });
+            }
         }
 
     }

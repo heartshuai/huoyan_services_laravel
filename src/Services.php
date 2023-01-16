@@ -21,6 +21,10 @@ class Services
     private  $baseUrl;
     private  $client;
     private $access_token;
+    /**
+     * @var mixed|string
+     */
+    private $controller;
 
     public function __construct(array $config)
     {
@@ -32,6 +36,7 @@ class Services
 
         $this->access_key=$config['access_key']??'';
         $this->access_secret=$config['access_secret']??'';
+        $this->controller=$config['controller']??'';
 
 
         $this->access_token=$this->getAccessToken();
@@ -87,7 +92,7 @@ class Services
 
 
         unset($args['send_type']);
-        return $this->$send_to_function("api/license/$method",[
+        return $this->$send_to_function("api/$this->controller/$method",[
             'headers' => ['Content-Type' => 'application/json','Authorization'=>$this->access_token],'json'=>$args]);
 
     }
